@@ -1,11 +1,15 @@
 import { gql } from 'apollo-server-express';
 
 export const typeDefs = gql`
+  type Timespan {
+    start: String!
+    end: String!
+  }
+
   type LongestBullish {
     length: Int!
-    startDate: String!
-    endDate: String!
-    stockData: [DailyData]
+    timespan: Timespan!
+    stockData: [DailyData!]!
   }
 
   type DailyData {
@@ -15,6 +19,15 @@ export const typeDefs = gql`
     open: Float!
     high: Float!
     low: Float!
-    SMA: Float
+    SMA: Float!
+  }
+
+  type Query {
+    longestBullish(timespan: Timespan): LongestBullish!
+    dailyData(
+      timespan: Timespan,
+      sortByVolume: Boolean,
+      sortBySMA: Boolean
+    ): [DailyData!]!
   }
 `;

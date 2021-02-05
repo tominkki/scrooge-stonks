@@ -1,7 +1,8 @@
 import { isArray, isDate, isNumber } from './type-guards';
 import { StockData } from '../types';
+import { arrayAverage } from './misc';
 
-const parseNumber = (param: any): Number => {
+const parseNumber = (param: any): number => {
   if (!param || !isNumber(param)) {
     throw new Error('Invalid data');
   }
@@ -24,7 +25,8 @@ const parseDailyData = (param: any): StockData => {
     volume: parseNumber(param.volume),
     open: parseNumber(param.open),
     high: parseNumber(param.high),
-    low: parseNumber(param.low)
+    low: parseNumber(param.low),
+    SMA: 0
   }
 
   return data;
@@ -34,7 +36,20 @@ export const parseData = (param: any): StockData[] => {
   if (!param || !isArray(param)) {
     throw new Error('Invalid data');
   }
-  const data: StockData[] = param.map((obj: any) => parseDailyData(obj));
+
+  let tmp: Array<number> = [];
+
+  const data: StockData[] = param.map((obj: any) => {
+    const parsed = parseDailyData(obj);
+    const SMA = (parsed.open / arrayAverage(tmp) - 1) * 100;
+
+    tmp.unshift(parsed.open);
+    if (tmp.length > 5) {
+      tmp.pop();
+    }
+
+    return { ...parsed, SMA }
+  });
 
   return data;
 }

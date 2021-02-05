@@ -1,4 +1,4 @@
-export const isNumber = (param: any): param is Number => {
+export const isNumber = (param: any): param is number => {
   return typeof param == 'number' || param instanceof Number;
 };
 
