@@ -1,4 +1,4 @@
 import stockService from './services/stock-service';
-import { byVolume } from './utils';
+import { findLongestBullish } from './utils';
 
-console.log(stockService.getData().sort((a,b) => byVolume(a,b)));
+console.log(findLongestBullish(stockService.getData()));

@@ -1,15 +1,15 @@
-import stockService from "../../services/stock-service";
-import { StockData, getDataArgs, Timespan, LongestBullish } from "../../types";
-import { byVolume } from "../../utils";
+import stockService from '../../services/stock-service';
+import { StockData, GetDataArgs, Timespan, LongestBullish } from '../../types';
+import { byVolume, findLongestBullish } from '../../utils';
 
-interface dailyDataArgs {
+interface DailyDataArgs {
   timespan?: Timespan;
   sortByVolume?: boolean;
   sortBySMA?: boolean;
 }
 
-export const dailyData = (_: void, args: dailyDataArgs): StockData[] => {
-  let filter: getDataArgs = null;
+export const dailyData = (_: void, args: DailyDataArgs): StockData[] => {
+  let filter: GetDataArgs = null;
   const { sortByVolume, sortBySMA } = args;
 
   if (args.timespan) {
@@ -26,8 +26,23 @@ export const dailyData = (_: void, args: dailyDataArgs): StockData[] => {
   }
 
   return stockService.getData(filter);
+};
+
+interface LongestBullishArgs {
+  timespan: Timespan;
 }
 
-export const longestBullish = (_: void, args: Timespan): LongestBullish => {
+export const longestBullish = (_: void, args: LongestBullishArgs): LongestBullish => {
+  let filter: GetDataArgs = null;
 
-}
+  if (args.timespan) {
+    const { start, end } = args.timespan;
+
+    const startDate = new Date(start);
+    startDate.setDate(startDate.getDate() - 1);
+
+    filter = { start: startDate, end: new Date(end) };
+  }
+
+  return findLongestBullish(stockService.getData(filter));
+};

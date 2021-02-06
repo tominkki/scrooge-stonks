@@ -2,6 +2,9 @@ import { isArray, isDate, isNumber } from './type-guards';
 import { StockData } from '../types';
 import { arrayAverage } from './misc';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 const parseNumber = (param: any): number => {
   if (!param || !isNumber(param)) {
     throw new Error('Invalid data');
@@ -11,12 +14,12 @@ const parseNumber = (param: any): number => {
 };
 
 const parseDate = (param: any): Date => {
-  if(!param || !isDate(param)) {
+  if (!param || !isDate(param)) {
     throw new Error('Invalid data');
   }
 
   return new Date(`${param}Z`);
-}
+};
 
 const parseDailyData = (param: any): StockData => {
   const data: StockData = {
@@ -27,19 +30,19 @@ const parseDailyData = (param: any): StockData => {
     high: parseNumber(param.high),
     low: parseNumber(param.low),
     SMA: 0
-  }
+  };
 
   return data;
-}
+};
 
 export const parseData = (param: any): StockData[] => {
   if (!param || !isArray(param)) {
     throw new Error('Invalid data');
   }
 
-  let tmp: Array<number> = [];
+  const tmp: Array<number> = [];
 
-  const data: StockData[] = param.map((obj: any) => {
+  const data: StockData[] = param.reverse().map((obj: any) => {
     const parsed = parseDailyData(obj);
     const SMA = (parsed.open / arrayAverage(tmp) - 1) * 100;
 
@@ -48,8 +51,8 @@ export const parseData = (param: any): StockData[] => {
       tmp.pop();
     }
 
-    return { ...parsed, SMA }
+    return { ...parsed, SMA };
   });
 
-  return data;
-}
+  return data.reverse();
+};

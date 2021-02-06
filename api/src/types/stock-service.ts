@@ -1,8 +1,8 @@
-export interface getDataByTimespan {
+export interface GetDataByTimespan {
   start: Date;
   end: Date;
-};
+}
 
-export type getDataArgs =
-  | getDataByTimespan
+export type GetDataArgs =
+  | GetDataByTimespan
   | null;
