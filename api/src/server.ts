@@ -4,8 +4,11 @@ import { ApolloServer } from 'apollo-server-express';
 
 import typeDefs from './graphql/type-defs';
 import resolvers from './graphql/resolvers';
+import { uploadRouter } from './routes';
 
 const app = express();
+app.use(express.json());
+app.use('/api/upload', uploadRouter);
 
 const grapqlServer = new ApolloServer({
   typeDefs,
@@ -13,7 +16,6 @@ const grapqlServer = new ApolloServer({
 });
 
 grapqlServer.applyMiddleware({ app, path: '/api/graphql' });
-
 const httpServer = http.createServer(app);
 
 httpServer.listen(3000, () => {

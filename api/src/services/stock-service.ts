@@ -1,12 +1,16 @@
-import data from '../data/stock-data.json';
 import { StockData, GetDataArgs } from '../types';
-import { parseData, inRange } from '../utils';
+import { inRange } from '../utils';
+import cache from './cache';
 
 const getData = (args: GetDataArgs = null): StockData[] => {
-  if (!args) {
-    return parseData(data);
+  const data: StockData[] | undefined = cache.get('STOCK-DATA');
+
+  if (!data) {
+    throw new Error('No data');
+  } else if (!args) {
+    return data;
   } else {
-    return parseData(data).filter(elem => inRange(elem.date, args.start, args.end));
+    return data.filter(elem => inRange(elem.date, args.start, args.end));
   }
 };
 

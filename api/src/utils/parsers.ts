@@ -44,7 +44,9 @@ export const parseData = (param: any): StockData[] => {
 
   const data: StockData[] = param.reverse().map((obj: any) => {
     const parsed = parseDailyData(obj);
-    const SMA = (parsed.open / arrayAverage(tmp) - 1) * 100;
+    const SMA = !isNaN(arrayAverage(tmp)) ?
+      (parsed.open / arrayAverage(tmp) - 1) * 100
+      : 0;
 
     tmp.unshift(parsed.open);
     if (tmp.length > 5) {
