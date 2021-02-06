@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express';
 
-export const typeDefs = gql`
+export default gql`
   type Timespan {
     start: String!
     end: String!
@@ -22,10 +22,15 @@ export const typeDefs = gql`
     SMA: Float!
   }
 
+  input TimespanInput {
+    start: String!
+    end: String!
+  }
+
   type Query {
-    longestBullish(timespan: Timespan): LongestBullish!
+    longestBullish(timespan: TimespanInput): LongestBullish!
     dailyData(
-      timespan: Timespan,
+      timespan: TimespanInput,
       sortByVolume: Boolean,
       sortBySMA: Boolean
     ): [DailyData!]!
