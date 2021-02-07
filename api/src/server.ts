@@ -16,8 +16,5 @@ const grapqlServer = new ApolloServer({
 });
 
 grapqlServer.applyMiddleware({ app, path: '/api/graphql' });
-const httpServer = http.createServer(app);
 
-httpServer.listen(3000, () => {
-  console.log(`GraphQl server ready at localhost:3000${grapqlServer.graphqlPath}`);
-});
+export default http.createServer(app);

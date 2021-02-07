@@ -5,15 +5,15 @@ import { arrayAverage } from './misc';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-const parseNumber = (param: any): number => {
+export const parseNumber = (param: any): number => {
   if (!param || !isNumber(param)) {
     throw new Error('Invalid data');
   }
 
-  return param;
+  return param.valueOf();
 };
 
-const parseDate = (param: any): Date => {
+export const parseDate = (param: any): Date => {
   if (!param || !isDate(param)) {
     throw new Error('Invalid data');
   }
@@ -21,7 +21,7 @@ const parseDate = (param: any): Date => {
   return new Date(`${param}Z`);
 };
 
-const parseDailyData = (param: any): StockData => {
+export const parseDailyData = (param: any): StockData => {
   const data: StockData = {
     date: parseDate(param.date),
     close: parseNumber(param.close),

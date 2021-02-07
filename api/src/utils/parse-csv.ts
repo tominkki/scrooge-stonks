@@ -31,15 +31,19 @@ export const parseCsv = (path: fs.PathLike): Promise<StockData[]> => {
       .on('data', row => rows.push(row))
       .on('error', error => reject(error))
       .on('end', () => {
-        const strippedRows: ParsedRow[] = rows.map(row => ({
-          date: row.date.trim(),
-          close: parseFloat(row.close.replace('$', '')),
-          volume: parseInt(row.volume),
-          open: parseFloat(row.open.replace('$', '')),
-          high: parseFloat(row.high.replace('$', '')),
-          low: parseFloat(row.low.replace('$', ''))
-        }));
-        resolve(parseData(strippedRows));
+        try{
+          const strippedRows: ParsedRow[] = rows.map(row => ({
+            date: row.date.trim(),
+            close: parseFloat(row.close.replace('$', '')),
+            volume: parseInt(row.volume),
+            open: parseFloat(row.open.replace('$', '')),
+            high: parseFloat(row.high.replace('$', '')),
+            low: parseFloat(row.low.replace('$', ''))
+          }));
+          resolve(parseData(strippedRows));
+        } catch (error) {
+          reject(error);
+        } 
         fs.unlinkSync(path);
       });
   });
