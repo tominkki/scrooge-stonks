@@ -31,7 +31,7 @@ export const parseCsv = (path: fs.PathLike): Promise<StockData[]> => {
       .on('data', row => rows.push(row))
       .on('error', error => reject(error))
       .on('end', () => {
-        try{
+        try {
           const strippedRows: ParsedRow[] = rows.map(row => ({
             date: row.date.trim(),
             close: parseFloat(row.close.replace('$', '')),
@@ -43,7 +43,7 @@ export const parseCsv = (path: fs.PathLike): Promise<StockData[]> => {
           resolve(parseData(strippedRows));
         } catch (error) {
           reject(error);
-        } 
+        }
         fs.unlinkSync(path);
       });
   });

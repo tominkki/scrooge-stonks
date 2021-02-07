@@ -1,6 +1,8 @@
 import { gql } from 'apollo-server-express';
 
 export default gql`
+  scalar Date
+
   type Timespan {
     start: String!
     end: String!
@@ -13,7 +15,7 @@ export default gql`
   }
 
   type DailyData {
-    date: String!
+    date: Date!
     close: Float!
     volume: Int!
     open: Float!

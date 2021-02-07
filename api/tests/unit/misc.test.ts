@@ -10,46 +10,46 @@ describe('Misc util tests:', () => {
         new Date('2/5/2020'),
         new Date('2/15/2020')
       );
-  
+
       expect(result).toBe(true);
     });
-  
+
     test('2/15/2020 should be in range 2/5/2020 - 2/15/2020', () => {
       const result = inRange(
         new Date('2/15/2020'),
         new Date('2/5/2020'),
         new Date('2/15/2020')
       );
-  
+
       expect(result).toBe(true);
     });
-  
+
     test('2/5/2020 should not be in range 2/10/2020 - 2/15/2020', () => {
       const result = inRange(
         new Date('2/5/2020'),
         new Date('2/10/2020'),
         new Date('2/15/2020')
       );
-  
+
       expect(result).toBe(false);
     });
-  
+
     test('2/16/2020 should not be in range 2/10/2020 - 2/15/2020', () => {
       const result = inRange(
         new Date('2/16/2020'),
         new Date('2/10/2020'),
         new Date('2/15/2020')
       );
-  
+
       expect(result).toBe(false);
     });
   });
 
   describe('arrayAverage() tests:', () => {
     const testArrays: Array<Array<number>> = [
-      [1, 2, 3],
-      [10, 20, 30, 40, 50],
-      [12, 22, 33, 2, 123],
+      [ 1, 2, 3 ],
+      [ 10, 20, 30, 40, 50 ],
+      [ 12, 22, 33, 2, 123 ],
       []
     ];
 
@@ -81,14 +81,14 @@ describe('Misc util tests:', () => {
   describe('byVolume() tests:', () => {
     const testData: StockData[] = [
       {
-        date: new Date('01/20/2021'), 
+        date: new Date('01/20/2021'),
         close: 132.03,
         volume: 104319500,
         open: 128.66,
         high: 132.49,
         low: 128.55,
         SMA: 0
-      }, 
+      },
       {
         date: new Date('01/19/2021'),
         close: 127.83,

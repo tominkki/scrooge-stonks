@@ -47,7 +47,7 @@ describe('Parsers tests:', () => {
   describe('parseDailyData() tests:', () => {
     test('should return StockData object with valid data', () => {
       const testData = {
-        date: '01/20/2021', 
+        date: '01/20/2021',
         close: 132.03,
         volume: 104319500,
         open: 128.66,
@@ -56,7 +56,7 @@ describe('Parsers tests:', () => {
       };
 
       const expectedOutput = {
-        date: new Date('01/20/2021Z'), 
+        date: new Date('01/20/2021Z'),
         close: 132.03,
         volume: 104319500,
         open: 128.66,
@@ -72,11 +72,11 @@ describe('Parsers tests:', () => {
 
     test('should throw \'Invalid data\' error with invalid data', () => {
       const testData = {
-        date: new Date('01/20/2021'), 
+        date: new Date('01/20/2021'),
         close: 132.03,
         volume: 104319500,
         open: 128.66,
-        high: 132.49,
+        high: 132.49
       };
 
       expect(() => {
