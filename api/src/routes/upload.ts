@@ -15,7 +15,7 @@ uploadRouter.post('/', upload.single('file'), async (req, res) => {
     cache.flushAll();
     cache.set('STOCK-DATA', data);
 
-    res.sendStatus(200);
+    res.status(200).json(data);
   } catch ({ message }) {
     res.status(400).send(message);
   }
