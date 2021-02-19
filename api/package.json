@@ -8,7 +8,7 @@
     "dev": "ts-node-dev src/index.ts",
     "lint": "eslint --fix --ext .ts .",
     "test": "jest --verbose --runInBand",
-    "build": "rm -rf build && tsc && npm run build:ui",
+    "build:app": "rm -rf build && tsc && npm run build:ui",
     "build:ui": "rm -rf src/client && cd ../webapp && npm run build && cp -r build ../api/build/client"
   },
   "author": "",

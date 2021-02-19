@@ -6,7 +6,7 @@ const upload = async (file: File): Promise<DailyData[]> => {
   fd.append('file', file);
 
   const res = await axios.post<DailyData[]>(
-    'http://localhost:4000/api/upload',
+    process.env.REACT_APP_UPLOAD_URI as string,
     fd, {
       headers: {
         'Content-Type': 'multipart/form-data'

@@ -27,7 +27,7 @@ const theme = createMuiTheme({
 });
 
 const link = createHttpLink({
-  uri: 'http://localhost:4000/api/graphql'
+  uri: process.env.REACT_APP_GRAPHQL_URI
 });
 
 const client = new ApolloClient({
