@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 
 import { StoreContext } from '../../store';
 import { StockData } from '../../types';
+import { formatDate } from '../../utils';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -57,7 +58,7 @@ const StockTable: React.FC = () => {
         <Table className={classes.table} size='small'>
           <TableHead>
             <TableRow key='thead'>
-              <TableCell>Date (MM/DD/YYYY)</TableCell>
+              <TableCell>Date</TableCell>
               <TableCell align='right'>Trading volume</TableCell>
               <TableCell align='right'>Closing price ($)</TableCell>
               <TableCell align='right'>Opening price ($)</TableCell>
@@ -70,7 +71,7 @@ const StockTable: React.FC = () => {
             {data.slice(page * rows, page * rows + rows).map(row => (
               <TableRow key={row.date.toISOString()}>
                 <TableCell>
-                  {row.date.getUTCMonth() + 1}/{row.date.getUTCDate()}/{row.date.getUTCFullYear()}
+                  {formatDate(row.date)}
                 </TableCell>
                 <TableCell align='right'>{row.volume}</TableCell>
                 <TableCell align='right'>{row.close.toFixed(2)}</TableCell>
