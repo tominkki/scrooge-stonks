@@ -20,8 +20,8 @@ const theme = createMuiTheme({
       main: '#f04e30'
     },
     background: {
-      default: '#242729',
-      paper: '#323638'
+      default: '#1D1F21',
+      paper: '#282B2D'
     }
   }
 });

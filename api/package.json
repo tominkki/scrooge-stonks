@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
-  "type": "module",
   "scripts": {
+    "start": "NODE_ENV=production node build/index.js",
     "dev": "ts-node-dev src/index.ts",
     "lint": "eslint --fix --ext .ts .",
-    "test": "jest --verbose --runInBand"
+    "test": "jest --verbose --runInBand",
+    "build": "rm -rf build && tsc && npm run build:ui",
+    "build:ui": "rm -rf src/client && cd ../webapp && npm run build && cp -r build ../api/build/client"
   },
   "author": "",
   "license": "ISC",

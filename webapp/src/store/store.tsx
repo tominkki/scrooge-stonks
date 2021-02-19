@@ -7,7 +7,7 @@ const initial: State = {
   endDate: new Date(),
   stockData: [],
   longestBullish: null,
-  view: 'chart'
+  view: 'upload'
 };
 
 export const StoreContext = React.createContext<[State, React.Dispatch<Action>]>([

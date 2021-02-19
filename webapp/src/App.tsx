@@ -8,10 +8,15 @@ import { parseStockDataRes } from './utils';
 import { GET_STOCKDATA } from './graphql';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
-import Upload from './components/Upload';
-import Chart from './components/Chart';
-import Table from './components/Table';
-import LongestBullishSite from './components/LongestBullishSite';
+import Loader from './components/Loader';
+
+const Upload = React.lazy(() => import('./components/Upload'));
+
+const Chart = React.lazy(() => import('./components/Chart'));
+
+const Table = React.lazy(() => import('./components/Table'));
+
+const LongestBullishSite = React.lazy(() => import('./components/LongestBullishSite'));
 
 const useStyles = makeStyles({
   root: {
@@ -49,10 +54,12 @@ const App: React.FC = () => {
     <div className={classes.root}>
       <Header/>
       <div className={classes.content}>
-        {state.view === 'chart' && <Chart/>}
-        {state.view === 'table' && <Table/>}
-        {state.view === 'bullish' && <LongestBullishSite/>}
-        {state.view === 'upload' && <Upload/>}
+        <React.Suspense fallback={<Loader/>}>
+          {state.view === 'chart' && <Chart/>}
+          {state.view === 'table' && <Table/>}
+          {state.view === 'bullish' && <LongestBullishSite/>}
+          {state.view === 'upload' && <Upload/>}
+        </React.Suspense>
       </div>
       <Navigation/>
     </div>

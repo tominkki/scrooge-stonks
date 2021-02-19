@@ -1,6 +1,8 @@
 import httpServer from './server';
 
-httpServer.listen(4000, () => {
-  console.log('Upload endpoint ready at localhost:3000/api/upload');
-  console.log('GraphQl server ready at localhost:3000/api/graphql');
+const PORT = 4000 || process.env.PORT;
+
+httpServer.listen(PORT, () => {
+  console.log(`Upload endpoint ready at localhost:${PORT}/api/upload`);
+  console.log(`GraphQl server ready at localhost:${PORT}/api/graphql`);
 });
