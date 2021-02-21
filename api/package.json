@@ -9,7 +9,7 @@
     "lint": "eslint --fix --ext .ts .",
     "test": "jest --verbose --runInBand",
     "build:app": "rm -rf build && tsc && npm run build:ui",
-    "build:ui": "rm -rf src/client && cd ../webapp && npm run build && cp -r build ../api/build/client"
+    "build:ui": "cd ../webapp && npm run build && cp -r build ../api/build/client"
   },
   "author": "",
   "license": "ISC",

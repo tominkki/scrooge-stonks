@@ -1,5 +1,6 @@
 import supertest from 'supertest';
 import httpServer from '../../src/server';
+import { expectedUploadRes } from './expected';
 
 const app = supertest(httpServer);
 const endpoint = '/api/upload';
@@ -9,9 +10,11 @@ const invalidFile = `${__dirname}/files/invalid.csv`;
 
 describe('Upload endpoint tests:', () => {
   test('response status should be 200 with valid file', async () => {
-    await app.post(endpoint)
+    const { body } = await app.post(endpoint)
       .attach('file', validFile)
       .expect(200);
+
+    expect(body).toMatchObject(expectedUploadRes);
   });
 
   test('response status should be 400 and text \'Invalid data\' with invalid file', async () => {

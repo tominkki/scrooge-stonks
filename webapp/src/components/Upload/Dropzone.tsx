@@ -52,9 +52,12 @@ const Dropzone: React.FC<DropzoneProps> = ({ children, fileDropped }) => {
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    fileDropped(e.dataTransfer.files);
+
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      fileDropped(e.dataTransfer.files);
+    }
+
     e.dataTransfer.clearData();
-    setDrag(false);
     setCounter(0);
   };
 

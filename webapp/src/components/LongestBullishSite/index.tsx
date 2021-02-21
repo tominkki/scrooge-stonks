@@ -56,8 +56,8 @@ const LongestBullishSite: React.FC = () => {
         const longestBullish = parseLongestBullishRes(data);
 
         dispatch(setLongestBullish(longestBullish));
-      } catch ({ message }) {
-        console.error(message);
+      } catch {
+        //swallow 'no data' error
       }
     })();
   }, [ state.startDate, state.endDate ]);
@@ -71,8 +71,8 @@ const LongestBullishSite: React.FC = () => {
             <Typography variant='h4' align='center'>
               Longest Bullish Trend
             </Typography>
-            <Grid container zeroMinWidth className={classes.grid} spacing={0}>
-              <Grid item xs={6} wrap='wrap'>
+            <Grid container className={classes.grid} spacing={0}>
+              <Grid item xs={6}>
                 <Typography variant='subtitle1'>
                   Length:
                 </Typography>

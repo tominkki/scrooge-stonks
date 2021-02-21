@@ -44,8 +44,8 @@ const App: React.FC = () => {
 
         const stockData = parseStockDataRes(data);
         dispatch(setStockData(stockData));
-      } catch ({ message }) {
-        console.error(message);
+      } catch {
+        //swallow 'no data' error
       }
     })();
   }, []);

@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import Dropzone from './Dropzone';
+import ErrorSnackbar from '../ErrorSnackbar';
 import stockService from '../../services/stock-service';
 import { StoreContext, setStockData, setView } from '../../store';
 import { DailyData } from '../../types';
@@ -35,12 +36,15 @@ const useStyles = makeStyles(theme => ({
 const Upload: React.FC = () => {
 
   const [ , dispatch ] = React.useContext(StoreContext);
+  const [ error, setError ] = React.useState<boolean>(false);
+  const [ message, setMessage ] = React.useState<string>('');
 
   const classes = useStyles();
 
   const uploadFile = async (files: FileList | null): Promise<void> => {
     if (!files || 1 < files.length || files[0].type !== 'text/csv') {
-      console.error('Invalid file');
+      setMessage('Error: Invalid file.');
+      setError(true);
       return;
     }
 
@@ -54,13 +58,15 @@ const Upload: React.FC = () => {
       }));
       dispatch(setStockData(data));
       dispatch(setView('chart'));
-    } catch ({ message }) {
-      console.error(message);
+    } catch {
+      setMessage('Error: Invalid file.');
+      setError(true);
     }
   };
 
   return (
     <Container component='main' maxWidth='lg' className={classes.root}>
+      <ErrorSnackbar error={error} setError={setError} message={message}/>
       <Dropzone fileDropped={uploadFile}>
         <Paper className={classes.upload}>
           <input
